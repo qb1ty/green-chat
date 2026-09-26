@@ -11,7 +11,7 @@ export const router = createBrowserRouter([
 		element: <PublicLayout />,
 		loader: () => {
 			if (isAuthenticated()) {
-				redirect("/chat")
+				return redirect("/chat")
 			}
 
 			return null
@@ -27,17 +27,19 @@ export const router = createBrowserRouter([
 		path: "/chat",
 		element: <PrivateLayout />,
 		loader: () => {
-			console.log(isAuthenticated())
-
 			if (!isAuthenticated()) {
-				redirect("/login")
+				return redirect("/")
 			}
 
 			return null
 		},
 		children: [
 			{
-				path: "/chats",
+				index: true,
+				element: <ChatPage />
+			},
+			{
+				path: ":chatId",
 				element: <ChatPage />
 			}
 		]
