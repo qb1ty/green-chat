@@ -1,10 +1,12 @@
 import { Outlet, useLocation } from "react-router-dom"
 
+import { usePolling } from "@/hooks"
 import { Aside } from "@/shared/ui/chats"
 import { Toasts } from "@/shared/ui/toast"
 
 export default function PrivateLayout() {
 	const location = useLocation()
+	usePolling()
 
 	const isChatSelected =
 		location.pathname !== "/chat" && location.pathname !== "/chat/"
