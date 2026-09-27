@@ -4,11 +4,14 @@ import { PrivateLayout, PublicLayout } from "../layouts"
 
 import { ChatPage, LoginPage } from "@/pages"
 import { isAuthenticated } from "@/shared/utils"
+import NotFoundPage from "@/pages/not-found.page"
+import ErrorBoundaryPage from "@/pages/error-boundary.page"
 
 export const router = createBrowserRouter([
 	{
 		path: "/",
 		element: <PublicLayout />,
+		errorElement: <ErrorBoundaryPage />,
 		loader: () => {
 			if (isAuthenticated()) {
 				return redirect("/chat")
@@ -26,6 +29,7 @@ export const router = createBrowserRouter([
 	{
 		path: "/chat",
 		element: <PrivateLayout />,
+		errorElement: <ErrorBoundaryPage />,
 		loader: () => {
 			if (!isAuthenticated()) {
 				return redirect("/")
@@ -43,5 +47,9 @@ export const router = createBrowserRouter([
 				element: <ChatPage />
 			}
 		]
+	},
+	{
+		path: "*",
+		element: <NotFoundPage />
 	}
 ])
