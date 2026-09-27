@@ -10,7 +10,16 @@ export const axiosReqInterceptor = (
 	if (apiUrl && idInstance && apiTokenInstance) {
 		config.baseURL = apiUrl
 
-		config.url = `/waInstance${idInstance}${config.url}/${apiTokenInstance}`
+		const parts = config.url?.split("/").filter(Boolean) || []
+
+		if (parts.length > 0) {
+			const action = parts[0]
+			const params = parts.slice(1).join("/")
+
+			config.url = `/waInstance${idInstance}/${action}/${apiTokenInstance}${
+				params ? `/${params}` : ""
+			}`
+		}
 	}
 
 	return config
