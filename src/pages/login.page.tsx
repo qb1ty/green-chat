@@ -1,9 +1,21 @@
+import { useLoginForm } from "@/hooks"
+
 export default function LoginPage() {
+	const {
+		apiUrl,
+		idInstance,
+		apiTokenInstance,
+		setApiUrl,
+		setIdInstance,
+		setApiTokenInstance,
+		handleSubmit
+	} = useLoginForm()
+
 	return (
-		<main className="relative flex h-screen w-full items-center justify-center p-4 z-0">
+		<main className="relative flex w-full h-screen items-center justify-center p-4 z-0">
 			<form
-				className="flex w-full max-w-md flex-col gap-5 rounded-3xl bg-zinc-800 p-8 shadow-xl border border-white/5"
-				onSubmit={e => e.preventDefault()}
+				className="flex w-full max-w-md flex-col gap-5 rounded-3xl bg-(--bg-secondary) p-8 shadow-xl border border-white/5"
+				onSubmit={handleSubmit}
 			>
 				<div className="mb-2 flex flex-col gap-1 text-center">
 					<h1 className="font-raleway text-2xl font-bold text-white">
@@ -31,6 +43,8 @@ export default function LoginPage() {
 							w-full px-4 py-3
 						"
 						placeholder="https://0000.api.green-api.com"
+						value={apiUrl}
+						onChange={event => setApiUrl(event.target.value)}
 					/>
 				</div>
 
@@ -51,6 +65,8 @@ export default function LoginPage() {
 							w-full px-4 py-3
 						"
 						placeholder="1234567890"
+						value={idInstance}
+						onChange={event => setIdInstance(event.target.value)}
 					/>
 				</div>
 
@@ -71,6 +87,10 @@ export default function LoginPage() {
 							w-full px-4 py-3
 						"
 						placeholder="abcdef123456..."
+						value={apiTokenInstance}
+						onChange={event =>
+							setApiTokenInstance(event.target.value)
+						}
 					/>
 				</div>
 
